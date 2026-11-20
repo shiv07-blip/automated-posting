@@ -1,0 +1,109 @@
+$ python3 -m uvicorn app.main:app --host 0.0.0.0 --port 4000
+INFO:     Started server process [100713]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:4000 (Press CTRL+C to quit)
+
+$ curl -i -X POST http://localhost:4000/posting \
+    -H 'Content-Type: application/json' \
+    -d '{"message":"Check out our latest business platform and grow your online visibility. https://example.com"}'
+HTTP/1.1 200 OK
+content-type: application/json
+
+{
+  "success": true,
+  "results": [
+    {
+      "platform": "Rentry",
+      "status": "success",
+      "posted_url": "https://rentry.co/7ukdr9s4",
+      "public_access": true,
+      "date": "2026-11-20",
+      "time": "04:38:06",
+      "error": null
+    },
+    {
+      "platform": "dpaste.org",
+      "status": "success",
+      "posted_url": "https://dpaste.org/5k1fJ",
+      "public_access": true,
+      "date": "2026-11-20",
+      "time": "04:38:06",
+      "error": null
+    },
+    {
+      "platform": "Pastes.dev",
+      "status": "success",
+      "posted_url": "https://pastes.dev/mnlTUYnAsq",
+      "public_access": true,
+      "date": "2026-11-20",
+      "time": "04:38:06",
+      "error": null
+    },
+    {
+      "platform": "Hastebin",
+      "status": "success",
+      "posted_url": "https://hst.sh/udomutigeb",
+      "public_access": true,
+      "date": "2026-11-20",
+      "time": "04:38:06",
+      "error": null
+    },
+    {
+      "platform": "Catbox.moe",
+      "status": "success",
+      "posted_url": "https://files.catbox.moe/833hb9.txt",
+      "public_access": true,
+      "date": "2026-11-20",
+      "time": "04:38:06",
+      "error": null
+    },
+    {
+      "platform": "GitHub Gist",
+      "status": "failed",
+      "posted_url": null,
+      "public_access": false,
+      "date": null,
+      "time": null,
+      "error": "RuntimeError: GITHUB_TOKEN is not configured"
+    },
+    {
+      "platform": "Telegram Channel",
+      "status": "failed",
+      "posted_url": null,
+      "public_access": false,
+      "date": null,
+      "time": null,
+      "error": "RuntimeError: TELEGRAM_TOKEN and TELEGRAM_CHANNEL are not configured"
+    },
+    {
+      "platform": "Mastodon",
+      "status": "failed",
+      "posted_url": null,
+      "public_access": false,
+      "date": null,
+      "time": null,
+      "error": "RuntimeError: MASTODON_INSTANCE and MASTODON_TOKEN are not configured"
+    }
+  ]
+}
+
+INFO:     127.0.0.1:39082 - "POST /posting HTTP/1.1" 200 OK
+
+$ curl -i -X POST http://localhost:4000/posting \
+    -H 'Content-Type: application/json' \
+    -d '{"message":"Two links https://example.com and https://example.org"}'
+HTTP/1.1 422 Unprocessable Entity
+content-type: application/json
+
+{
+  "success": false,
+  "errors": [
+    {
+      "field": "message",
+      "message": "Value error, message must contain exactly one CTA link; found 2"
+    }
+  ]
+}
+
+INFO:     127.0.0.1:39090 - "POST /posting HTTP/1.1" 422 Unprocessable Entity

@@ -148,7 +148,9 @@ Invalid input (two links) returns HTTP 422:
 
 Validation rejects empty messages, messages over 200 characters, zero links, multiple links, and malformed URLs.
 
-## Server log
+## Logs
+
+A complete captured run (server startup, successful POST, validation error, and real posting URLs) is in `logs/sample-run.log`.
 
 ```text
 INFO:     Started server process [100713]
@@ -183,6 +185,7 @@ app/
   services/
     posting_service.py        Parallel dispatch and per-platform results
 tests/test_posting.py
+logs/sample-run.log
 .env.example
 requirements.txt
 ```
